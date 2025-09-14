@@ -83,7 +83,7 @@
 
   <main class="container">
     <header>
-      <div class="avatar"><img src="images/profile.jpg" alt="Profile Photo"></div>
+      <div class="avatar"><img src="images/profile.png" alt="Profile Photo"></div>
       <div style="flex:1">
         <div class="top-row">
           <div>
@@ -212,12 +212,31 @@
       </div>
     </div>
 
-    <div class="lightbox" id="lightbox">
-      <span class="lightbox-close" id="lightbox-close">&times;</span>
-      <img src="" alt="Expanded Certificate" id="lightbox-img">
-    </div>
-
-    <section class="card" id="contact">
+        <section class="card" id="contact">
       <div class="section-title"><i class="fa-solid fa-handshake"></i> Get in touch <span class="muted" style="margin-left:auto">Open to: Senior Power BI / Analytics / Data & AI roles</span></div>
       <p class="muted">If you'd like to discuss a role, collaboration or want copies of my code, reach out — I'll reply promptly.</p>
-      <div style="display:flex;gap:12px;margin
+      <div class="contact-buttons">
+        <a class="contact-btn contact-email" href="mailto:ambolkarmanthan@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
+        <a class="contact-btn contact-phone" href="tel:+919876543210"><i class="fa-solid fa-phone"></i> Call</a>
+        <a class="contact-btn contact-linkedin" href="https://www.linkedin.com/in/manthanambolkar" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        <a class="contact-btn contact-github" href="https://github.com/manthanambolkar" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});}));
+
+    const lightbox=document.getElementById('lightbox');
+    const lightboxImg=document.getElementById('lightbox-img');
+    const closeBtn=document.getElementById('lightbox-close');
+    document.querySelectorAll('.carousel-item img').forEach(img=>{
+      img.addEventListener('click',()=>{
+        lightbox.classList.add('active');
+        lightboxImg.src=img.src;
+      });
+    });
+    closeBtn.addEventListener('click',()=>lightbox.classList.remove('active'));
+    lightbox.addEventListener('click',e=>{if(e.target===lightbox){lightbox.classList.remove('active')}});
+  </script>
