@@ -5,35 +5,55 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Manthan Ramnath Ambolkar — Data & AI | Portfolio</title>
   <meta name="description" content="Portfolio of Manthan Ramnath Ambolkar — Senior Data Analyst, Power BI, SQL, Python, ML.">
-  <link rel="icon" href="data:,"><style>
-  :root{--accent:#0b74d1;--bg:#0f1720;--card:#0b1220;--muted:#9aa6b2;--glass: rgba(255,255,255,0.04)}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+  :root{--accent:#2563eb;--bg:#f3f4f6;--card:#ffffff;--muted:#475569;--glass: rgba(37,99,235,0.05)}
   *{box-sizing:border-box}
-  body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:linear-gradient(180deg,#071022 0%, #041025 100%); color:#e6eef6; -webkit-font-smoothing:antialiased}
-  .container{max-width:1000px;margin:32px auto;padding:24px}
+  body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:var(--bg); color:#1e293b; -webkit-font-smoothing:antialiased}
+  .container{max-width:1100px;margin:80px auto 32px auto;padding:24px}
   header{display:flex;gap:16px;align-items:center}
-  .avatar{width:96px;height:96px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#5ec2ff);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:32px;color:#042138;box-shadow:0 8px 30px rgba(3,102,200,0.25)}
-  h1{margin:0;font-size:26px}
+  .avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:32px;color:#fff;box-shadow:0 8px 20px rgba(37,99,235,0.25)}
+  h1{margin:0;font-size:30px;color:#0f172a}
   h2{margin:0;color:var(--muted);font-weight:600}
   .top-row{display:flex;justify-content:space-between;gap:16px;align-items:center}
   .actions{display:flex;gap:8px}
-  .btn{background:var(--accent);color:#022435;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600}
-  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+  .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:6px}
+  .btn.ghost{background:transparent;border:1px solid var(--accent);color:var(--accent)}
   .grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:20px}
-  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
-  .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-  ul.skills{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
-  ul.skills li{background:var(--glass);padding:8px 10px;border-radius:8px;color:var(--muted);font-weight:600}
+  .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 15px rgba(0,0,0,0.06)}
+  .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:#0f172a}
+  .badges{display:flex;flex-wrap:wrap;gap:10px}
+  .badge{background:var(--glass);border:1px solid var(--accent);padding:10px 14px;border-radius:8px;display:flex;align-items:center;gap:8px;font-weight:600;color:#1e293b;box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+  .badge i{color:var(--accent)}
+  .skills-box{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:10px}
+  .skills-list{background:var(--glass);padding:14px;border-radius:10px}
+  .skills-list h4{margin-top:0;color:#0f172a;font-size:15px;margin-bottom:8px}
+  .skills-list ul{padding:0;list-style:none;margin:0}
+  .skills-list li{display:flex;justify-content:space-between;margin:6px 0}
+  .stars{color:#facc15}
   .experience .item{margin-bottom:14px}
-  .muted{color:var(--muted);font-size:13px}
-  .timeline{border-left:2px solid rgba(255,255,255,0.03);padding-left:12px}
-  .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-  .project{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+  .muted{color:var(--muted);font-size:14px}
+  .timeline{border-left:3px solid var(--accent);padding-left:12px}
+  .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .project{padding:12px;border-radius:10px;background:var(--glass)}
   footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
   a.link{color:var(--accent);text-decoration:none}
-  @media (max-width:860px){.grid{grid-template-columns:1fr}.top-row{flex-direction:column;align-items:flex-start}.avatar{width:76px;height:76px}}
+  .navbar{position:fixed;top:0;left:0;width:100%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.06);z-index:999;display:flex;justify-content:center;gap:24px;padding:12px 0}
+  .navbar a{color:#0f172a;text-decoration:none;font-weight:600;transition:color 0.2s}
+  .navbar a:hover{color:var(--accent)}
+  @media (max-width:860px){.grid{grid-template-columns:1fr}.skills-box{grid-template-columns:1fr}.top-row{flex-direction:column;align-items:flex-start}.avatar{width:76px;height:76px}.navbar{flex-wrap:wrap;gap:12px;padding:8px 0}}
   </style>
 </head>
 <body>
+  <nav class="navbar">
+    <a href="#education">Education</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
   <main class="container">
     <header>
       <div class="avatar">M</div>
@@ -44,17 +64,57 @@
             <div class="muted">Sr. Data Analyst — Data & AI | Power BI • SQL • Python • ML</div>
           </div>
           <div class="actions">
-            <a class="btn" href="#contact">Contact</a>
-            <a class="btn ghost" href="Manthan_Resume.pdf" download>Download Resume</a>
+            <a class="btn" href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+            <a class="btn ghost" href="Manthan_Resume.pdf" download><i class="fa-solid fa-file-pdf"></i> Resume</a>
           </div>
         </div>
-        <p style="margin-top:14px;line-height:1.45;max-width:85%">Data Analytics & AI professional with experience converting complex data into actionable business insights. Proven track record in cross-functional initiatives, cost optimization, and executive-facing reporting across healthcare, airlines and IT services.</p>
       </div>
     </header>
 
+    <section id="education" class="card" style="margin-top:20px">
+      <div class="section-title"><h3><i class="fa-solid fa-graduation-cap"></i> Education</h3></div>
+      <p><strong>IIT Bhubaneswar</strong> — B.Tech & M.Tech, Thermal Science Engineering <br><span class="muted">CGPA 8.2 • 2016-2021</span></p>
+    </section>
+
+    <section id="certifications" class="card" style="margin-top:20px">
+      <div class="section-title"><h3><i class="fa-solid fa-certificate"></i> Certifications</h3></div>
+      <div class="badges">
+        <div class="badge"><i class="fa-brands fa-microsoft"></i> Power BI Data Analyst Associate</div>
+        <div class="badge"><i class="fa-brands fa-microsoft"></i> Fabric Analytics Engineer Associate</div>
+        <div class="badge"><i class="fa-solid fa-database"></i> HackerRank SQL (Advanced)</div>
+        <div class="badge"><i class="fa-solid fa-code"></i> Alteryx Designer Core</div>
+      </div>
+    </section>
+
+    <section id="skills" class="card" style="margin-top:20px">
+      <div class="section-title"><h3><i class="fa-solid fa-laptop-code"></i> Skills</h3></div>
+      <div class="skills-box">
+        <div class="skills-list">
+          <h4>Technical Skills</h4>
+          <ul>
+            <li>Power BI / Advanced DAX <span class="stars">★★★★★</span></li>
+            <li>SQL / PL-SQL <span class="stars">★★★★★</span></li>
+            <li>Python / Pandas <span class="stars">★★★★☆</span></li>
+            <li>Alteryx <span class="stars">★★★★☆</span></li>
+            <li>Tableau <span class="stars">★★★☆☆</span></li>
+            <li>Power Apps / MS Fabric <span class="stars">★★★★☆</span></li>
+          </ul>
+        </div>
+        <div class="skills-list">
+          <h4>Soft Skills</h4>
+          <ul>
+            <li>Stakeholder Management <span class="stars">★★★★★</span></li>
+            <li>Problem Solving <span class="stars">★★★★★</span></li>
+            <li>Communication & Training <span class="stars">★★★★☆</span></li>
+            <li>Team Leadership <span class="stars">★★★★☆</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <div class="grid">
-      <section class="card">
-        <div class="section-title"><h3>Experience</h3><div class="muted">Wipro Technology Limited • Jun 2021 - Present</div></div>
+      <section id="experience" class="card">
+        <div class="section-title"><h3><i class="fa-solid fa-briefcase"></i> Experience</h3><div class="muted">Wipro Technology Limited • Jun 2021 - Present</div></div>
         <div class="experience timeline">
           <div class="item">
             <strong>Senior Data Analyst - L3</strong>
@@ -83,10 +143,9 @@
               <li>Transition tracking dashboards for 80+ accounts and automated monthly close reports with Finance.</li>
             </ul>
           </div>
-
         </div>
 
-        <div style="margin-top:14px" class="section-title"><h3>Projects & Research</h3><div class="muted">Selected work</div></div>
+        <div id="projects" style="margin-top:14px" class="section-title"><h3><i class="fa-solid fa-diagram-project"></i> Projects & Research</h3></div>
         <div class="project-grid">
           <div class="project">
             <strong>ML-based microstructure analysis</strong>
@@ -102,31 +161,17 @@
       </section>
 
       <aside class="card">
-        <div class="section-title"><h3>Contact</h3><div class="muted">Mumbai, Maharashtra</div></div>
-        <p class="muted" style="margin:0">✉️ <a class="link" href="mailto:ambolkarmanthan@gmail.com">ambolkarmanthan@gmail.com</a><br>📞 +91 82805 49114<br>🔗 <a class="link" href="https://www.linkedin.com/in/manthanambolkar" target="_blank">LinkedIn</a></p>
-
-        <hr style="margin:14px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)">
-
-        <div class="section-title"><h3>Skills</h3><div class="muted">Tools & Tech</div></div>
-        <ul class="skills">
-          <li>Power BI</li><li>Advanced DAX</li><li>SQL / PL-SQL</li><li>Python / Pandas</li><li>Alteryx</li><li>Power Apps</li><li>MS Fabric</li><li>Tableau</li>
-        </ul>
-
-        <div style="margin-top:12px" class="section-title"><h3>Certifications</h3><div class="muted">Selected</div></div>
-        <p class="muted" style="margin:0">Power BI Data Analyst Associate<br>Fabric Analytics Engineer Associate<br>HackerRank: SQL (Advanced)<br>Alteryx Designer Core</p>
-
-        <div style="margin-top:12px" class="section-title"><h3>Education</h3><div class="muted">IIT Bhubaneswar</div></div>
-        <p class="muted" style="margin:0">B.Tech & M.Tech, Thermal Science Engineering — CGPA 8.2 (2016-2021)</p>
-
+        <div class="section-title"><h3><i class="fa-solid fa-address-card"></i> Contact</h3><div class="muted">Mumbai, Maharashtra</div></div>
+        <p class="muted" style="margin:0"><i class="fa-solid fa-envelope"></i> <a class="link" href="mailto:ambolkarmanthan@gmail.com">ambolkarmanthan@gmail.com</a><br><i class="fa-solid fa-phone"></i> +91 82805 49114<br><i class="fa-brands fa-linkedin"></i> <a class="link" href="https://www.linkedin.com/in/manthanambolkar" target="_blank">LinkedIn</a></p>
       </aside>
     </div>
 
     <section class="card" id="contact" style="margin-top:18px">
-      <div class="section-title"><h3>Get in touch</h3><div class="muted">Open to: Senior Power BI / Analytics / Data & AI roles</div></div>
+      <div class="section-title"><h3><i class="fa-solid fa-handshake"></i> Get in touch</h3><div class="muted">Open to: Senior Power BI / Analytics / Data & AI roles</div></div>
       <p class="muted">If you'd like to discuss a role, collaboration or want copies of my code, reach out — I'll reply promptly.</p>
       <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-        <a class="btn" href="mailto:ambolkarmanthan@gmail.com">Email Me</a>
-        <a class="btn ghost" href="https://www.linkedin.com/in/manthanambolkar" target="_blank">LinkedIn</a>
+        <a class="btn" href="mailto:ambolkarmanthan@gmail.com"><i class="fa-solid fa-envelope"></i> Email Me</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/manthanambolkar" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
       </div>
     </section>
 
@@ -136,9 +181,7 @@
   </main>
 
   <script>
-    // small enhancement: smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});}));
   </script>
 </body>
 </html>
-
