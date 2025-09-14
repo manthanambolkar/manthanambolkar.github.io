@@ -35,8 +35,8 @@
   .btn.ghost:hover{background:var(--accent);color:#fff}
   .card{background:var(--card);padding:24px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,0.05);margin-top:24px}
   .section-title{display:flex;align-items:center;margin-bottom:16px;color:#0f172a;gap:8px;font-size:20px;font-weight:600}
-  .badges{display:flex;flex-wrap:nowrap;gap:20px;overflow-x:auto;padding-bottom:6px}
-  .badge{flex:0 0 auto;background:var(--glass);border:1px solid var(--accent);padding:14px 20px;border-radius:10px;display:flex;align-items:center;gap:8px;font-weight:600;color:#1e293b;white-space:nowrap;transition:all .2s}
+  .badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .badge{background:var(--glass);border:1px solid var(--accent);padding:14px 20px;border-radius:10px;display:flex;align-items:center;gap:8px;font-weight:600;color:#1e293b;transition:all .2s}
   .badge:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,0.08)}
   .badge i{color:var(--accent)}
   .skills-box{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -50,8 +50,15 @@
   .timeline{border-left:3px solid var(--accent);padding-left:14px}
   .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
   .project{padding:16px;border-radius:12px;background:var(--glass)}
-  footer{margin-top:32px;color:var(--muted);font-size:13px;text-align:center}
-  a.link{color:var(--accent);text-decoration:none}
+  .carousel{margin-top:24px;overflow:hidden;position:relative}
+  .carousel-track{display:flex;gap:20px;animation:scroll 30s linear infinite}
+  .carousel-item{flex:0 0 auto;width:200px;height:140px;background:var(--card);margin:0 4px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden}
+  .carousel-item img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+  @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)} }
+  .lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:1000}
+  .lightbox img{max-width:90%;max-height:90%;border-radius:10px;box-shadow:0 0 20px rgba(0,0,0,0.5)}
+  .lightbox.active{display:flex}
+  .lightbox-close{position:absolute;top:20px;right:30px;color:#fff;font-size:32px;cursor:pointer}
   .navbar{position:fixed;top:0;left:0;width:100%;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.06);z-index:999;display:flex;justify-content:center;gap:28px;padding:14px 0}
   .navbar a{color:#0f172a;text-decoration:none;font-weight:600;transition:color 0.2s;font-size:15px}
   .navbar a:hover{color:var(--accent)}
@@ -60,7 +67,7 @@
     .top-row{flex-direction:column;align-items:flex-start}
     .avatar{width:90px;height:90px}
     .navbar{flex-wrap:wrap;gap:14px;padding:10px 0}
-    .badges{flex-wrap:wrap;overflow-x:visible}
+    .badges{grid-template-columns:1fr}
   }
   </style>
 </head>
@@ -85,7 +92,7 @@
           </div>
           <div class="actions">
             <a class="btn" href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
-            <a class="btn ghost" href="Manthan Resume.pdf" download><i class="fa-solid fa-file-pdf"></i> Resume</a>
+            <a class="btn ghost" href="Manthan_Resume.pdf" download><i class="fa-solid fa-file-pdf"></i> Resume</a>
           </div>
         </div>
       </div>
@@ -106,10 +113,11 @@
     <section id="certifications" class="card">
       <div class="section-title"><i class="fa-solid fa-certificate"></i> Certifications</div>
       <div class="badges">
-        <a href="https://learn.microsoft.com/en-us/certifications/power-bi-data-analyst-associate/" target="_blank" class="badge"><i class="fa-brands fa-microsoft"></i> Power BI Data Analyst Associate</a>
-        <a href="https://learn.microsoft.com/en-us/certifications/fabric-analytics-engineer-associate/" target="_blank" class="badge"><i class="fa-brands fa-microsoft"></i> Fabric Analytics Engineer Associate</a>
-        <a href="https://www.hackerrank.com/skills-verification/sql_basic" target="_blank" class="badge"><i class="fa-solid fa-database"></i> HackerRank SQL (Advanced)</a>
-        <a href="https://www.alteryx.com/certification/core" target="_blank" class="badge"><i class="fa-solid fa-code"></i> Alteryx Designer Core</a>
+        <a href="https://learn.microsoft.com/api/credentials/share/en-us/MANTHANRAMNATHAMBOLKAR-4018/C0B5640B91A21409?sharingId=2F9BB643B8BDE7C8" target="_blank" class="badge"><i class="fa-brands fa-microsoft"></i> Power BI Data Analyst Associate</a>
+        <a href="https://learn.microsoft.com/api/credentials/share/en-us/MANTHANRAMNATHAMBOLKAR-4018/822C24001AEAAE98?sharingId=2F9BB643B8BDE7C8" target="_blank" class="badge"><i class="fa-brands fa-microsoft"></i> Fabric Analytics Engineer Associate</a>
+        <a href="https://www.hackerrank.com/certificates/b259caa342dd" target="_blank" class="badge"><i class="fa-solid fa-database"></i> HackerRank SQL (Advanced)</a>
+        <a href="https://www.credly.com/badges/8d3f762a-1a9e-48fb-b983-ee6b9b965d76/public_url" target="_blank" class="badge"><i class="fa-solid fa-code"></i> Alteryx Designer Core</a>
+        <a href="https://www.credly.com/badges/4e76e69f-93fd-4599-b81d-702b96510469/public_url" target="_blank" class="badge"><i class="fa-solid fa-lightbulb"></i> McKinsey Forward Program</a>
       </div>
     </section>
 
@@ -145,7 +153,7 @@
         <div class="item">
           <strong>Senior Data Analyst - L3</strong>
           <div class="muted">Jun 2021 - Present</div>
-          <ul style="margin-top:8px;color:var(--muted)">
+          <ul style="margin-top:8px;color:var(--muted)}">
             <li>Built dynamic dashboards & scorecards using Power BI, SQL and Python to track KPIs and drive decisions.</li>
             <li>Delivered quarterly insights, financial benchmarking and predictive models for strategic stakeholders.</li>
             <li>Led stakeholder scoping and custom analytics frameworks for cost-saving and performance improvements.</li>
@@ -154,8 +162,7 @@
 
         <div class="item">
           <strong>Business Analyst - L2</strong>
-          <div class="muted">(Earlier)</div>
-          <ul style="margin-top:8px;color:var(--muted)">
+          <ul style="margin-top:8px;color:var(--muted)}">
             <li>Designed reporting frameworks (Power BI / Tableau), led UAT cycles and implemented enterprise dashboards.</li>
             <li>Integrated external API streams & ensured compliance-driven reporting.</li>
           </ul>
@@ -163,8 +170,7 @@
 
         <div class="item">
           <strong>System Engineer / Smart Ops Analyst</strong>
-          <div class="muted">(Earlier Roles)</div>
-          <ul style="margin-top:8px;color:var(--muted)">
+          <ul style="margin-top:8px;color:var(--muted)}">
             <li>Built PowerApps tools, performed text mining, and optimized dashboards (40% load time improvement).</li>
             <li>Transition tracking dashboards for 80+ accounts and automated monthly close reports with Finance.</li>
           </ul>
@@ -176,32 +182,43 @@
         <div class="project">
           <strong>ML-based microstructure analysis</strong>
           <div class="muted">Bhabha Atomic Research Center — Intern</div>
-          <div class="muted" style="margin-top:6px">Developed computer vision pipeline (DeepLab, GANs) for microstructure segmentation — 91% accuracy.</div>
+          <div class="muted" style="margin-top:6px">Developed computer vision pipeline (DeepLab, GANs) for microstructure segmentation — 91% accuracy. This project applied state-of-the-art semantic segmentation to materials science problems, improving characterization efficiency and enabling better predictive modeling of structural properties.</div>
         </div>
         <div class="project">
           <strong>Research Paper</strong>
           <div class="muted">Journal of Fluids & Structures</div>
-          <div class="muted" style="margin-top:6px">Propulsive performance of a pitching foil — peer-reviewed publication.</div>
+          <div class="muted" style="margin-top:6px">Propulsive performance of a pitching foil — peer-reviewed publication. The research explored fluid-structure interaction and bio-inspired propulsion mechanisms, contributing to next-gen marine vehicle design. <a href="https://doi.org/10.1016/j.jfluidstructs.2022.103537" target="_blank" class="link">Read Paper</a></div>
+        </div>
+        <div class="project">
+          <strong>Executive Dashboards & KPI Reporting</strong>
+          <div class="muted">Corporate Strategy Projects</div>
+          <div class="muted" style="margin-top:6px">Developed multiple Power BI dashboards across Sales, Healthcare, Airlines and IT Services domains. Designed predictive KPIs, SLA monitoring tools, and C-suite level executive scorecards with drill-through analysis, enabling improved forecasting and decision-making.</div>
+        </div>
+        <div class="project">
+          <strong>Finance Automation & MIS Reporting</strong>
+          <div class="muted">Financial Planning & Analysis</div>
+          <div class="muted" style="margin-top:6px">Automated monthly closing and reporting processes using SQL, Power BI, and Alteryx workflows. Reduced manual reporting time by 40%, enhanced accuracy, and enabled real-time financial insights for leadership teams.</div>
         </div>
       </div>
     </section>
 
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-item"><img src="certificate1.jpg" alt="Certificate 1"></div>
+        <div class="carousel-item"><img src="certificate2.jpg" alt="Certificate 2"></div>
+        <div class="carousel-item"><img src="certificate3.jpg" alt="Certificate 3"></div>
+        <div class="carousel-item"><img src="certificate4.jpg" alt="Certificate 4"></div>
+        <div class="carousel-item"><img src="certificate5.jpg" alt="Certificate 5"></div>
+        <div class="carousel-item"><img src="certificate6.jpg" alt="Certificate 6"></div>
+      </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+      <span class="lightbox-close" id="lightbox-close">&times;</span>
+      <img src="" alt="Expanded Certificate" id="lightbox-img">
+    </div>
+
     <section class="card" id="contact">
       <div class="section-title"><i class="fa-solid fa-handshake"></i> Get in touch <span class="muted" style="margin-left:auto">Open to: Senior Power BI / Analytics / Data & AI roles</span></div>
       <p class="muted">If you'd like to discuss a role, collaboration or want copies of my code, reach out — I'll reply promptly.</p>
-      <div style="display:flex;gap:12px;margin-top:14px;flex-wrap:wrap">
-        <a class="btn" href="mailto:ambolkarmanthan@gmail.com"><i class="fa-solid fa-envelope"></i> Email Me</a>
-        <a class="btn ghost" href="https://www.linkedin.com/in/manthanambolkar" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-      </div>
-    </section>
-
-    <footer>
-      Built with ❤️ • Manthan Ramnath Ambolkar • <span class="muted">Last updated: Sep 14, 2025</span>
-    </footer>
-  </main>
-
-  <script>
-    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});}));
-  </script>
-</body>
-</html>
+      <div style="display:flex;gap:12px;margin
