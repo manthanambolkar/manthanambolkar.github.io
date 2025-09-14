@@ -12,7 +12,8 @@
   body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; margin:0; background:var(--bg); color:#1e293b; -webkit-font-smoothing:antialiased}
   .container{max-width:1100px;margin:80px auto 32px auto;padding:24px}
   header{display:flex;gap:16px;align-items:center}
-  .avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:32px;color:#fff;box-shadow:0 8px 20px rgba(37,99,235,0.25)}
+  .avatar{width:96px;height:96px;border-radius:50%;overflow:hidden;box-shadow:0 8px 20px rgba(37,99,235,0.25)}
+  .avatar img{width:100%;height:100%;object-fit:cover}
   h1{margin:0;font-size:30px;color:#0f172a}
   h2{margin:0;color:var(--muted);font-weight:600}
   .top-row{display:flex;justify-content:space-between;gap:16px;align-items:center}
@@ -56,7 +57,7 @@
 
   <main class="container">
     <header>
-      <div class="avatar">M</div>
+      <div class="avatar"><img src="profile.jpg" alt="Profile Photo"></div>
       <div style="flex:1">
         <div class="top-row">
           <div>
@@ -73,16 +74,16 @@
 
     <section id="education" class="card" style="margin-top:20px">
       <div class="section-title"><h3><i class="fa-solid fa-graduation-cap"></i> Education</h3></div>
-      <p><strong>IIT Bhubaneswar</strong> — B.Tech & M.Tech, Thermal Science Engineering <br><span class="muted">CGPA 8.2 • 2016-2021</span></p>
+      <p><img src="iitbbs_logo.png" alt="IIT Bhubaneswar Logo" style="height:40px;vertical-align:middle;margin-right:8px"><strong>IIT Bhubaneswar</strong><br>B.Tech in Mechanical Engineering & M.Tech in Thermal Science Engineering <br><span class="muted">CGPA 8.2 • 2016-2021</span></p>
     </section>
 
     <section id="certifications" class="card" style="margin-top:20px">
       <div class="section-title"><h3><i class="fa-solid fa-certificate"></i> Certifications</h3></div>
       <div class="badges">
-        <div class="badge"><i class="fa-brands fa-microsoft"></i> Power BI Data Analyst Associate</div>
-        <div class="badge"><i class="fa-brands fa-microsoft"></i> Fabric Analytics Engineer Associate</div>
-        <div class="badge"><i class="fa-solid fa-database"></i> HackerRank SQL (Advanced)</div>
-        <div class="badge"><i class="fa-solid fa-code"></i> Alteryx Designer Core</div>
+        <a href="https://learn.microsoft.com/en-us/certifications/power-bi-data-analyst-associate/" target="_blank" class="badge"><i class="fa-brands fa-microsoft"></i> Power BI Data Analyst Associate</a>
+        <a href="https://learn.microsoft.com/en-us/certifications/fabric-analytics-engineer-associate/" target="_blank" class="badge"><i class="fa-brands fa-microsoft"></i> Fabric Analytics Engineer Associate</a>
+        <a href="https://www.hackerrank.com/skills-verification/sql_basic" target="_blank" class="badge"><i class="fa-solid fa-database"></i> HackerRank SQL (Advanced)</a>
+        <a href="https://www.alteryx.com/certification/core" target="_blank" class="badge"><i class="fa-solid fa-code"></i> Alteryx Designer Core</a>
       </div>
     </section>
 
