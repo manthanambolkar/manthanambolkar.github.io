@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corporate Buzzword of the Day</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a28;
+    --accent: #f5c518;
+    --accent2: #ff6b35;
+    --accent3: #00d4aa;
+    --text: #e8e8f0;
+    --muted: #6b6b8a;
+    --border: #252535;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(245,197,24,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,197,24,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -40%;
+    right: -20%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(245,197,24,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(-60px, 40px) scale(1.1); }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+  }
+
+  .clock-display {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  #live-clock {
+    font-size: 1.1rem;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Word Card */
+  .word-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.6s ease both;
+  }
+
+  .word-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+  }
+
+  .word-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(245,197,24,0.1);
+    border: 1px solid rgba(245,197,24,0.2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .word-of-day {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    word-break: break-word;
+  }
+
+  .pronunciation {
+    font-family: 'DM Mono', monospace;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .definition {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #b0b0cc;
+    max-width: 680px;
+    margin-bottom: 20px;
+  }
+
+  .example-box {
+    background: var(--surface2);
+    border-left: 3px solid var(--accent3);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 20px;
+    font-size: 0.92rem;
+    color: #9090b0;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .example-box strong {
+    color: var(--accent3);
+    font-style: normal;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  /* Office Hours Status */
+  .office-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    animation: slideUp 0.6s 0.1s ease both;
+  }
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent3);
+    box-shadow: 0 0 12px var(--accent3);
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+
+  .status-dot.offline { background: var(--muted); box-shadow: none; animation: none; }
+  .status-dot.warning { background: var(--accent2); box-shadow: 0 0 12px var(--accent2); }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .status-text { font-size: 0.9rem; color: var(--muted); }
+  .status-text span { color: var(--text); font-weight: 500; }
+
+  .office-time-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-left: auto;
+    max-width: 200px;
+  }
+
+  .office-time-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent3), var(--accent));
+    transition: width 1s linear;
+  }
+
+  /* Counter Section */
+  .counter-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    animation: slideUp 0.6s 0.2s ease both;
+  }
+
+  .counter-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .counter-display {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .count-btn {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    user-select: none;
+  }
+
+  .count-btn:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.05); }
+  .count-btn:active { transform: scale(0.95); }
+  .count-btn.minus:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .count-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--accent);
+    min-width: 100px;
+    text-align: center;
+    transition: transform 0.1s;
+    text-shadow: 0 0 40px rgba(245,197,24,0.3);
+  }
+
+  .count-number.bump {
+    animation: bump 0.2s ease;
+  }
+
+  @keyframes bump {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  .streak-display {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 300px;
+  }
+
+  .streak-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+
+  .streak-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(245,197,24,0.6);
+  }
+
+  .used-btn {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .used-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .used-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,197,24,0.4); }
+  .used-btn:hover::after { opacity: 0.1; }
+  .used-btn:active { transform: translateY(0); }
+
+  /* Reactions row */
+  .reaction-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .reaction-chip {
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: default;
+    transition: all 0.2s;
+  }
+
+  .reaction-chip.earned {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(245,197,24,0.08);
+  }
+
+  /* End-of-day Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+
+  .modal-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px 40px;
+    max-width: 520px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.4s ease;
+    overflow: hidden;
+  }
+
+  .modal-overlay.show .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent), var(--accent3));
+  }
+
+  .modal-emoji { font-size: 4rem; margin-bottom: 16px; }
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #fff, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .modal-subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; }
+
+  .modal-count-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem;
+    color: var(--accent);
+    line-height: 1;
+    text-shadow: 0 0 60px rgba(245,197,24,0.4);
+    margin: 8px 0;
+  }
+
+  .modal-verdict {
+    font-size: 1rem;
+    color: var(--accent3);
+    margin-bottom: 28px;
+    font-weight: 500;
+  }
+
+  .share-section {
+    background: var(--surface2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+
+  .share-section strong { color: var(--accent); }
+
+  .modal-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { box-shadow: 0 6px 24px rgba(245,197,24,0.4); transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+
+  /* Settings row */
+  .settings-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    animation: slideUp 0.6s 0.3s ease both;
+    flex-wrap: wrap;
+  }
+
+  .settings-row label {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  .settings-row input[type="time"] {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    outline: none;
+  }
+
+  .settings-row input[type="time"]:focus { border-color: var(--accent); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--surface2);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    color: var(--accent);
+    z-index: 200;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    font-family: 'DM Mono', monospace;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* Confetti canvas */
+  #confetti-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 150;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .footer-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    padding: 10px 0 20px;
+    animation: slideUp 0.6s 0.4s ease both;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<div class="container">
+  <header>
+    <div class="logo">BUZZWORD.EXE</div>
+    <div class="clock-display">
+      <div id="live-clock">--:--:--</div>
+      <div id="date-display" style="font-size:0.75rem;color:var(--muted)"></div>
+    </div>
+  </header>
+
+  <!-- Word Card -->
+  <div class="word-card">
+    <div class="word-badge">📅 Word of the Day</div>
+    <div class="word-of-day" id="word-display">SYNERGY</div>
+    <div class="pronunciation" id="word-pronunciation">/ˈsɪn.ər.dʒi/</div>
+    <div class="definition" id="word-definition">The magical phenomenon where two teams combine and somehow produce less output than either did alone, yet leadership insists the numbers are looking great.</div>
+    <div class="example-box">
+      <strong>🎙️ Use it like a pro</strong>
+      <span id="word-example">"We need to leverage our cross-functional synergy to move the needle on this deliverable."</span>
+    </div>
+  </div>
+
+  <!-- Office Hours Status -->
+  <div class="office-status">
+    <div class="status-dot" id="status-dot"></div>
+    <div class="status-text" id="status-text">Loading...</div>
+    <div class="office-time-bar">
+      <div class="office-time-fill" id="office-progress" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Counter -->
+  <div class="counter-section">
+    <div class="counter-label">Times I said it today</div>
+    <div class="counter-display">
+      <button class="count-btn minus" onclick="changeCount(-1)">−</button>
+      <div class="count-number" id="count-display">0</div>
+      <button class="count-btn" onclick="changeCount(1)">+</button>
+    </div>
+    <div class="streak-display" id="streak-dots"></div>
+    <button class="used-btn" onclick="logUsage()">✓ I just used it!</button>
+    <div class="reaction-row" id="reactions"></div>
+  </div>
+
+  <!-- Settings -->
+  <div class="settings-row">
+    <label>🏢 OFFICE HOURS</label>
+    <div>
+      <label style="font-size:0.75rem;margin-right:4px">Start</label>
+      <input type="time" id="start-time" value="09:00">
+    </div>
+    <div>
+      <label style="font-size:0.75rem;margin-right:4px">End</label>
+      <input type="time" id="end-time" value="18:00">
+    </div>
+    <button class="btn-ghost" style="padding:8px 18px;font-size:0.8rem" onclick="saveSettings()">Save</button>
+    <button class="btn-ghost" style="padding:8px 18px;font-size:0.8rem;margin-left:auto" onclick="triggerEndOfDay()">Preview End Screen</button>
+  </div>
+
+  <div class="footer-note">← Data saved locally · Refreshes daily at midnight →</div>
+</div>
+
+<!-- End of Day Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-emoji" id="modal-emoji">🏆</div>
+    <div class="modal-title">DAY COMPLETE</div>
+    <div class="modal-subtitle">Office hours are over. Time to log off and touch grass.</div>
+    <div class="modal-count-big" id="modal-count">0</div>
+    <div class="modal-verdict" id="modal-verdict"></div>
+    <div class="share-section" id="share-text"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="closeModal()">Log off 👋</button>
+      <button class="btn-ghost" onclick="copyShareText()">Copy Score 📋</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── WORD BANK ─────────────────────────────────────────────────────────────
+const words = [
+  { word: "SYNERGY", pron: "/ˈsɪn.ər.dʒi/", def: "The magical phenomenon where two teams combine and somehow produce less output than either did alone, yet leadership insists the numbers are looking great.", ex: '"We need to leverage our cross-functional synergy to move the needle on this deliverable."' },
+  { word: "BANDWIDTH", pron: "/ˈbænd.wɪdθ/", def: "A unit of human capacity, usually cited when someone wants to say 'I am overwhelmed' without seeming overwhelmed.", ex: '"Do you have the bandwidth to take on this high-priority, totally-optional, urgent task by EOD?"' },
+  { word: "PIVOT", pron: "/ˈpɪv.ət/", def: "What companies say when the original plan failed spectacularly, but we're reframing it as a strategic evolution.", ex: '"We\'re not abandoning our roadmap—we\'re pivoting toward a more agile value delivery framework."' },
+  { word: "ECOSYSTEM", pron: "/ˈiː.koʊ.sɪs.təm/", def: "The word to use when 'group of companies we work with' sounds too simple and you need to seem visionary.", ex: '"Our product sits at the center of a thriving partner ecosystem that enables end-to-end transformation."' },
+  { word: "BOIL THE OCEAN", pron: "/bɔɪl ðə ˈoʊ.ʃən/", def: "What you accuse others of doing when you secretly have no idea how to solve the actual problem either.", ex: '"Let\'s not boil the ocean here—let\'s identify the 80/20 and action the highest-leverage items."' },
+  { word: "DEEP DIVE", pron: "/diːp daɪv/", def: "A meeting that was originally supposed to be a 15-minute sync and is now a 2-hour review with 47 slides.", ex: '"Can we schedule a deep dive on the Q3 metrics before we socialize the deck with leadership?"' },
+  { word: "CIRCLE BACK", pron: "/ˈsɜː.kəl bæk/", def: "Corporate for 'I will not do this, but I would like to avoid conflict right now.'", ex: '"Great point—let\'s circle back on that offline after we align on the bigger picture."' },
+  { word: "LOW-HANGING FRUIT", pron: "/loʊ ˈhæŋ.ɪŋ fruːt/", def: "The task everyone claims is easy until they're assigned to do it.", ex: '"The low-hanging fruit here is optimizing our email open rates before we tackle the full funnel."' },
+  { word: "DISRUPTIVE", pron: "/dɪsˈrʌp.tɪv/", def: "What every startup calls itself. Also what your colleague calls you after you talk over them in a Zoom call.", ex: '"Our disruptive approach to B2B SaaS onboarding will fundamentally reshape the space."' },
+  { word: "VALUE-ADD", pron: "/ˈvæl.juː æd/", def: "A task that justifies your existence on a project. Often used in reverse: 'Is this really a value-add?'", ex: '"What value-add are we bringing to the client that they can\'t get from a simple spreadsheet?"' },
+  { word: "PARADIGM SHIFT", pron: "/ˈpær.ə.daɪm ʃɪft/", def: "When someone updates a process nobody used correctly anyway and presents it as a revolution.", ex: '"This isn\'t just a new feature—it\'s a paradigm shift in how enterprises think about data governance."' },
+  { word: "SCALABLE", pron: "/ˈskeɪ.lə.bəl/", def: "The single word that separates a 'good idea' from a 'fundable idea' in any corporate pitch.", ex: '"We need a scalable solution that doesn\'t require hiring three more people every time we onboard a client."' },
+  { word: "TOUCH BASE", pron: "/tʌtʃ beɪs/", def: "A meeting with no agenda, no notes, and no outcome, scheduled so someone feels they've managed.", ex: '"Let\'s touch base Thursday to make sure we\'re aligned before the stakeholder presentation."' },
+  { word: "STAKEHOLDER", pron: "/ˈsteɪk.hoʊl.dər/", def: "Anyone who can delay your project by replying 'Can we revisit scope?' in an email.", ex: '"We need to map all our stakeholders and ensure we\'re managing their expectations proactively."' },
+  { word: "IDEATE", pron: "/ˈaɪ.di.eɪt/", def: "To brainstorm, but in a room with sticky notes and a whiteboard to justify the offsite budget.", ex: '"Let\'s block 2 hours this week to ideate on new go-to-market approaches for the enterprise segment."' },
+  { word: "OPTICS", pron: "/ˈɒp.tɪks/", def: "The difference between what actually happened and the story you tell in the all-hands.", ex: '"The optics of cancelling the team offsite the same week bonuses are delayed are not great."' },
+  { word: "GRANULAR", pron: "/ˈɡræn.jʊ.lər/", def: "The level of detail your manager wants that you interpret as 'more spreadsheet tabs'.", ex: '"Can we get more granular on the cost breakdown before we take this to the CFO?"' },
+  { word: "ROBUST", pron: "/rəʊˈbʌst/", def: "A word used to describe any system that has been stress-tested zero times but sounds confident.", ex: '"We\'ve built a robust framework that can handle scale, edge cases, and regulatory requirements."' },
+  { word: "NORTH STAR", pron: "/nɔːθ stɑːr/", def: "A single metric the company rallies around for one quarter before pivoting to a different metric.", ex: '"Our north star metric this year is daily active users—everything else is secondary."' },
+  { word: "HOLISTIC", pron: "/həˈlɪs.tɪk/", def: "Considering everything vaguely related to your project so that no one can say you forgot to consider it.", ex: '"We need to take a holistic view of the customer journey before redesigning the checkout flow."' },
+  { word: "LEVERAGE", pron: "/ˈlev.ər.ɪdʒ/", def: "To use something you already have, but in a way that sounds more powerful than 'use'.", ex: '"We should leverage our existing infrastructure before we start building net-new capabilities."' },
+  { word: "DELIVERABLE", pron: "/dɪˈlɪv.ər.ə.bəl/", def: "A document, deck, or spreadsheet created to prove that a meeting had a purpose.", ex: '"The key deliverable from this sprint is the executive summary deck by Thursday EOD."' },
+  { word: "ACTIONABLE", pron: "/ˈæk.ʃən.ə.bəl/", def: "Feedback that someone can actually do something with, as opposed to 98% of corporate feedback.", ex: '"Let\'s make sure every insight in the report is actionable and tied to a clear owner."' },
+  { word: "LEARNINGS", pron: "/ˈlɜːn.ɪŋz/", def: "The word 'lessons' after a project failure, because 'lessons' implies we made a mistake.", ex: '"Let\'s document our learnings from the pilot so we can iterate before the full rollout."' },
+  { word: "PROACTIVE", pron: "/prəʊˈæk.tɪv/", def: "What you are described as when you tell your manager about a problem before they find out from someone else.", ex: '"I want to be proactive about flagging this risk before it impacts our Q4 commitments."' },
+  { word: "ALIGNMENT", pron: "/əˈlaɪn.mənt/", def: "The sacred state of having everyone agree, usually achieved right before someone disagrees via email.", ex: '"Before we finalize the timeline, let\'s ensure we have full alignment across all stakeholder groups."' },
+  { word: "BANDWIDTH", pron: "/ˈbænd.wɪdθ/", def: "Human capacity measured in imaginary units that managers always overestimate.", ex: '"I\'m checking in on your bandwidth—can you absorb this additional workstream starting Monday?"' },
+  { word: "BLEEDING EDGE", pron: "/ˈbliːdɪŋ edʒ/", def: "Technology so new it hasn't had time to fail yet—but it will.", ex: '"Our platform uses bleeding-edge AI to deliver real-time personalization at enterprise scale."' },
+  { word: "MISSION-CRITICAL", pron: "/ˈmɪʃ.ən ˈkrɪt.ɪ.kəl/", def: "How every task is described in Q4 to prevent it from being deprioritized.", ex: '"This integration is mission-critical for our product launch and cannot be pushed to next quarter."' },
+  { word: "SOCIALIZE", pron: "/ˈsoʊ.ʃəl.aɪz/", def: "To send a document to people and hope they reply with 'looks good' before the deadline.", ex: '"Let\'s socialize the proposal with the broader team before we take it to leadership for sign-off."' },
+];
+
+// ─── STATE ─────────────────────────────────────────────────────────────────
+const today = new Date().toDateString();
+let state = JSON.parse(localStorage.getItem('buzzword_state') || '{}');
+
+// Reset if new day
+if (state.date !== today) {
+  const dayIndex = Math.floor(Date.now() / 86400000) % words.length;
+  state = { date: today, wordIndex: dayIndex, count: 0, endShown: false };
+  saveState();
+}
+
+let count = state.count;
+let endShown = state.endShown;
+const wordData = words[state.wordIndex];
+
+// ─── INIT ───────────────────────────────────────────────────────────────────
+document.getElementById('word-display').textContent = wordData.word;
+document.getElementById('word-pronunciation').textContent = wordData.pron;
+document.getElementById('word-definition').textContent = wordData.def;
+document.getElementById('word-example').textContent = wordData.ex;
+updateCountDisplay();
+renderStreakDots();
+renderReactions();
+
+// Load saved office hours
+const savedStart = localStorage.getItem('office_start') || '09:00';
+const savedEnd = localStorage.getItem('office_end') || '18:00';
+document.getElementById('start-time').value = savedStart;
+document.getElementById('end-time').value = savedEnd;
+
+// ─── CLOCK ─────────────────────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  document.getElementById('live-clock').textContent = now.toLocaleTimeString('en-IN', { hour12: false });
+  document.getElementById('date-display').textContent = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+  updateOfficeStatus(now);
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+// ─── OFFICE HOURS ──────────────────────────────────────────────────────────
+function getOfficeMinutes() {
+  const start = document.getElementById('start-time').value.split(':').map(Number);
+  const end = document.getElementById('end-time').value.split(':').map(Number);
+  return { startMin: start[0]*60+start[1], endMin: end[0]*60+end[1] };
+}
+
+function updateOfficeStatus(now) {
+  const { startMin, endMin } = getOfficeMinutes();
+  const currentMin = now.getHours()*60 + now.getMinutes();
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  const progress = document.getElementById('office-progress');
+
+  const startH = document.getElementById('start-time').value;
+  const endH = document.getElementById('end-time').value;
+
+  if (currentMin < startMin) {
+    dot.className = 'status-dot offline';
+    txt.innerHTML = `Office hours start at <span>${startH}</span> · Rise and shine!`;
+    progress.style.width = '0%';
+  } else if (currentMin >= startMin && currentMin < endMin) {
+    dot.className = 'status-dot';
+    const elapsed = currentMin - startMin;
+    const total = endMin - startMin;
+    const pct = Math.min(100, (elapsed/total)*100);
+    progress.style.width = pct + '%';
+
+    const remaining = endMin - currentMin;
+    const rH = Math.floor(remaining/60);
+    const rM = remaining % 60;
+    const remainStr = rH > 0 ? `${rH}h ${rM}m` : `${rM}m`;
+
+    txt.innerHTML = `🟢 Office hours active · <span>${remainStr} remaining</span>`;
+
+    // Warn at last 5 minutes
+    if (remaining <= 5 && !endShown) {
+      dot.className = 'status-dot warning';
+    }
+
+    // Trigger end of day check
+    if (remaining <= 0 && !endShown) showEndOfDay();
+  } else {
+    dot.className = 'status-dot offline';
+    txt.innerHTML = `Office hours ended at <span>${endH}</span> · You're free! 🎉`;
+    progress.style.width = '100%';
+    if (!endShown) showEndOfDay();
+  }
+}
+
+// ─── COUNT ─────────────────────────────────────────────────────────────────
+function changeCount(delta) {
+  count = Math.max(0, count + delta);
+  state.count = count;
+  saveState();
+  updateCountDisplay();
+  renderStreakDots();
+  renderReactions();
+}
+
+function logUsage() {
+  changeCount(1);
+  showToast(`+1 "${wordData.word}" logged 🗣️`);
+  const el = document.getElementById('count-display');
+  el.classList.remove('bump');
+  void el.offsetWidth;
+  el.classList.add('bump');
+  if (count === 5) { showToast("5 uses! You're a corporate linguist 🏅"); triggerConfetti(); }
+  if (count === 10) { showToast("10 USES! You're insufferable. We love it. 🔥"); triggerConfetti(); }
+}
+
+function updateCountDisplay() {
+  document.getElementById('count-display').textContent = count;
+}
+
+function renderStreakDots() {
+  const container = document.getElementById('streak-dots');
+  const max = 10;
+  container.innerHTML = '';
+  for (let i = 0; i < max; i++) {
+    const d = document.createElement('div');
+    d.className = 'streak-dot' + (i < count ? ' active' : '');
+    container.appendChild(d);
+  }
+}
+
+function renderReactions() {
+  const tiers = [
+    { min: 0, max: 0, label: "🦗 Ghost Mode — haven't used it yet" },
+    { min: 1, max: 2, label: "🌱 Rookie — dipping your toes" },
+    { min: 3, max: 4, label: "📈 Climbing — definitely saying it in meetings" },
+    { min: 5, max: 7, label: "🔥 On Fire — colleagues are noticing" },
+    { min: 8, max: 9, label: "🏆 Legend — you ARE the buzzword" },
+    { min: 10, max: Infinity, label: "🚀 CEO Mode — please stop" },
+  ];
+  const earned = tiers.filter(t => count >= t.min && count <= t.max)[0] || tiers[0];
+  const container = document.getElementById('reactions');
+  container.innerHTML = '';
+  const chip = document.createElement('div');
+  chip.className = 'reaction-chip earned';
+  chip.textContent = earned.label;
+  container.appendChild(chip);
+}
+
+// ─── END OF DAY ────────────────────────────────────────────────────────────
+function getVerdict(n) {
+  if (n === 0) return { emoji: "😴", verdict: "You forgot to synergize. Tomorrow, maybe.", share: "I completely forgot to use my corporate buzzword today. 0 uses. Zero. Ghost mode activated." };
+  if (n <= 2) return { emoji: "🌱", verdict: "Mild corporate flavour. Needs more jargon seasoning.", share: `I used today's corporate buzzword only ${n} time(s). Amateur hour.` };
+  if (n <= 4) return { emoji: "📊", verdict: "Solid performance. Stakeholders are impressed.", share: `I slipped "${wordData.word}" into ${n} conversations today. Getting warmer.` };
+  if (n <= 7) return { emoji: "🔥", verdict: "Outstanding. You're a natural thought leader.", share: `I said "${wordData.word}" ${n} times today. My colleagues are concerned. I am thriving.` };
+  if (n <= 9) return { emoji: "🏆", verdict: "You've achieved peak corporate fluency. HR has been notified.", share: `${n} uses of "${wordData.word}" today. I should be in management by now.` };
+  return { emoji: "🚀", verdict: "YOU ARE THE BUZZWORD. The buzzword IS you. Please seek help.", share: `${n} uses of "${wordData.word}" in a single workday. I am the corporate singularity.` };
+}
+
+function showEndOfDay() {
+  if (endShown) return;
+  endShown = true;
+  state.endShown = true;
+  saveState();
+
+  const { emoji, verdict, share } = getVerdict(count);
+  document.getElementById('modal-emoji').textContent = emoji;
+  document.getElementById('modal-count').textContent = count;
+  document.getElementById('modal-verdict').textContent = verdict;
+  document.getElementById('share-text').innerHTML = `<strong>📋 Your score:</strong><br>${share}`;
+  document.getElementById('modal').classList.add('show');
+  if (count >= 5) triggerConfetti();
+}
+
+function triggerEndOfDay() {
+  endShown = false; // allow preview
+  showEndOfDay();
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+function copyShareText() {
+  const { share } = getVerdict(count);
+  navigator.clipboard.writeText(share + ` | BUZZWORD.EXE`).then(() => showToast("Copied to clipboard! ✓"));
+}
+
+// ─── SETTINGS ──────────────────────────────────────────────────────────────
+function saveSettings() {
+  localStorage.setItem('office_start', document.getElementById('start-time').value);
+  localStorage.setItem('office_end', document.getElementById('end-time').value);
+  showToast("Office hours saved ✓");
+}
+
+// ─── STORAGE ───────────────────────────────────────────────────────────────
+function saveState() { localStorage.setItem('buzzword_state', JSON.stringify(state)); }
+
+// ─── TOAST ─────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ─── CONFETTI ──────────────────────────────────────────────────────────────
+function triggerConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+  const particles = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: -20,
+    r: Math.random() * 8 + 4,
+    d: Math.random() * 2 + 1,
+    color: ['#f5c518','#ff6b35','#00d4aa','#fff','#ff9f1c'][Math.floor(Math.random()*5)],
+    tilt: Math.random() * 10 - 5,
+    tiltSpeed: Math.random() * 0.1 - 0.05,
+  }));
+
+  let frame = 0;
+  const maxFrames = 120;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.fillStyle = p.color;
+      ctx.ellipse(p.x, p.y, p.r, p.r/2, p.tilt, 0, Math.PI*2);
+      ctx.fill();
+      p.y += p.d * 3;
+      p.x += Math.sin(frame * 0.05 + p.tilt) * 1.5;
+      p.tilt += p.tiltSpeed;
+    });
+    frame++;
+    if (frame < maxFrames + 40) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
+}
+</script>
+</body>
+</html>
